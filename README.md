@@ -7,4 +7,4 @@ This project ties together several elements critical for a production level Data
 - HDFS for storing output
 - Spark for tying all the pieces together
 
-This project utilizes the Amazon Public Reviews dataset.
+This is an SBT/Scala project, and utilizes the Amazon Public Reviews dataset.
