@@ -1,6 +1,6 @@
 package com.heydev.labs.exercise
 
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions.from_json
 import org.apache.spark.sql.types.{IntegerType, StringType, StructType, TimestampType}
 

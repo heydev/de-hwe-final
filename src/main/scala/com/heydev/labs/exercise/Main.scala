@@ -29,10 +29,10 @@ object Main {
     val structuredReviews = ReviewsProcessor.processReviews(df)
     val newSchema = StructType(structuredReviews.schema.fields :+ UsersProcessor.USERS_SCHEMA)
     val encoder = RowEncoder(newSchema)
-    val enrichedReviews = structuredReviews.mapPartitions (rows =>
+    val enrichedReviews = structuredReviews.mapPartitions { rows =>
       UsersProcessor.enrichUserData(rows, (row) => {
       row.getAs[Row]("review").getAs[Int]("customer_id").toString
-    }))(encoder)
+    })}(encoder)
 
     val consoleQuery = enrichedReviews.writeStream
       .outputMode(OutputMode.Append())

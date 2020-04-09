@@ -31,11 +31,14 @@ object UsersProcessor {
     val result = table.get(get)
 
     Row(
-      Row(new java.sql.Date(new SimpleDateFormat(BIRTHDATE_FORMAT).parse(new String(result.getValue(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes(BIRTHDATE_COLUMN)))).getTime),
+      Row(
+        new java.sql.Date(new SimpleDateFormat(BIRTHDATE_FORMAT).parse(new String(result.getValue(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes(BIRTHDATE_COLUMN)))).getTime),
         new String(result.getValue(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes(EMAIL_COLUMN))),
         new String(result.getValue(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes(NAME_COLUMN))),
         new String(result.getValue(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes(SEX_COLUMN))),
-        new String(result.getValue(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes(USERNAME_COLUMN)))))
+        new String(result.getValue(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes(USERNAME_COLUMN)))
+      )
+    )
   }
 
   def enrichUserData(rows: Iterator[Row], getCustomerId: (Row) => String) = {
