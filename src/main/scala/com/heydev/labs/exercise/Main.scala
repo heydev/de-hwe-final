@@ -13,12 +13,10 @@ object Main {
     .builder()
     .appName("de-hwe-final")
     .master("local[1]")
+    .config("spark.hadoop.dfs.client.use.datanode.hostname", "true")
     .getOrCreate()
 
   def main(args: Array[String]): Unit = {
-    spark.conf.set("spark.hadoop.dfs.client.use.datanode.hostname", "true")
-    spark.conf.set("spark.hadoop.fs.defaultFS", "hdfs://quickstart.cloudera:8020")
-
     val df = spark
       .readStream
       .format("kafka")
@@ -54,10 +52,10 @@ object Main {
       .option("path", "hdfs://quickstart.cloudera:8020/user/brianrkeeter/reviews")
       .option("checkpointLocation", "hdfs://quickstart.cloudera:8020/user/brianrkeeter/reviews_checkpoint")
       .trigger(Trigger.ProcessingTime("10 seconds"))
-      .outputMode("append")
+      .outputMode(OutputMode.Append())
       .start()
 
     consoleQuery.processAllAvailable()
-//    hdfsQuery.processAllAvailable()
+    hdfsQuery.processAllAvailable()
   }
 }
